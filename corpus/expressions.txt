@@ -263,6 +263,9 @@ a--;
 a <<= a;
 a >>= a;
 a >>>= a;
+a &= a;
+a ^= a;
+a |= a;
 
 --------------------------------------------------------------------------------
 
@@ -305,6 +308,24 @@ a >>>= a;
     (expression_statement
       (postfix_unary_expression
         (identifier))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        (assignment_operator)
+        right: (identifier))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        (assignment_operator)
+        right: (identifier))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        (assignment_operator)
+        right: (identifier))))
   (global_statement
     (expression_statement
       (assignment_expression

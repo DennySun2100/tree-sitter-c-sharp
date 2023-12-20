@@ -661,3 +661,124 @@ file class A {}
     (modifier)
     name: (identifier)
     body: (declaration_list)))
+
+================================================================================
+Abstract class and override
+================================================================================
+
+public abstract class F {
+  public F(bool b) {}
+  public abstract bool method();
+  protected virtual bool another() {
+    return false;
+  }
+}
+
+public class G : F {
+  public G() : base(true) {
+  }
+  public override bool method() {
+    return true;
+  }
+  protected override bool another() {
+    return base.another();
+  }
+  public int sum(params int[] list) {
+    var dateTime = global::System.DateTime.Now;
+    return 0;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    (modifier)
+    (identifier)
+    (declaration_list
+      (constructor_declaration
+        (modifier)
+        (identifier)
+        (parameter_list
+          (parameter
+            (predefined_type)
+            (identifier)))
+        (block))
+      (method_declaration
+        (modifier)
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list))
+      (method_declaration
+        (modifier)
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block
+          (return_statement
+            (boolean_literal))))))
+  (class_declaration
+    (modifier)
+    (identifier)
+    (base_list
+      (identifier))
+    (declaration_list
+      (constructor_declaration
+        (modifier)
+        (identifier)
+        (parameter_list)
+        (constructor_initializer
+          (argument_list
+            (argument
+              (boolean_literal))))
+        (block))
+      (method_declaration
+        (modifier)
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block
+          (return_statement
+            (boolean_literal))))
+      (method_declaration
+        (modifier)
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block
+          (return_statement
+            (invocation_expression
+              (member_access_expression
+                (base_expression)
+                (identifier))
+              (argument_list)))))
+      (method_declaration
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list
+          (array_type
+            (predefined_type)
+            (array_rank_specifier))
+          (identifier))
+        (block
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (equals_value_clause
+                  (member_access_expression
+                    (member_access_expression
+                      (alias_qualified_name
+                        (identifier)
+                        (identifier))
+                      (identifier))
+                    (identifier))))))
+          (return_statement
+            (integer_literal)))))))

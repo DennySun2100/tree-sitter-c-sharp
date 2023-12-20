@@ -305,3 +305,48 @@ Shebang directive
 
 (compilation_unit
   (shebang_directive))
+
+================================================================================
+Nullable directives
+================================================================================
+
+#nullable disable
+#nullable enable
+#nullable restore
+#nullable enable warnings
+#nullable disable warnings
+#nullable restore warnings
+#nullable enable annotations
+#nullable disable annotations
+#nullable restore annotations
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (nullable_directive)
+  (nullable_directive)
+  (nullable_directive)
+  (nullable_directive)
+  (nullable_directive)
+  (nullable_directive)
+  (nullable_directive)
+  (nullable_directive)
+  (nullable_directive))
+
+================================================================================
+Pragma directives
+================================================================================
+
+#pragma warning restore 414
+
+#pragma checksum "file.cs" "{406EA660-64CF-4C82-B6F0-42D48172A799}" "ab007f1d23d9"
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (pragma_directive
+    (integer_literal))
+  (pragma_directive
+    (preproc_string_literal)
+    (preproc_string_literal)
+    (preproc_string_literal)))

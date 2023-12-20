@@ -2037,3 +2037,112 @@ MyClass myVar = MyFunction<MyOtherClass>("MyArg");
                 (argument
                   (string_literal
                     (string_literal_fragment)))))))))))
+================================================================================
+Empty statement
+================================================================================
+
+class A {
+  void Sample() {
+    ;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block
+          (empty_statement))))))
+
+================================================================================
+Volatile call member
+================================================================================
+
+class A {
+  volatile bool done = false;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (field_declaration
+        (modifier)
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier)
+            (equals_value_clause
+              (boolean_literal))))))))
+
+================================================================================
+Unsafe pointers
+================================================================================
+
+unsafe
+{
+    fixed (int* p = &a[0])
+    {
+        void * p3;
+        int *[] p4;
+        type *p5;
+        int* p2 = p;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (unsafe_statement
+      (block
+        (fixed_statement
+          (variable_declaration
+            (pointer_type
+              (predefined_type))
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (prefix_unary_expression
+                  (element_access_expression
+                    (identifier)
+                    (bracketed_argument_list
+                      (argument
+                        (integer_literal))))))))
+          (block
+            (local_declaration_statement
+              (variable_declaration
+                (pointer_type
+                  (predefined_type))
+                (variable_declarator
+                  (identifier))))
+            (local_declaration_statement
+              (variable_declaration
+                (array_type
+                  (pointer_type
+                    (predefined_type))
+                  (array_rank_specifier))
+                (variable_declarator
+                  (identifier))))
+            (local_declaration_statement
+              (variable_declaration
+                (pointer_type
+                  (identifier))
+                (variable_declarator
+                  (identifier))))
+            (local_declaration_statement
+              (variable_declaration
+                (pointer_type
+                  (predefined_type))
+                (variable_declarator
+                  (identifier)
+                  (equals_value_clause
+                    (identifier)))))))))))
