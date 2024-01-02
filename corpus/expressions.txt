@@ -1507,6 +1507,16 @@ void a() {
   b(c, in d, out e, ref f, out var g);
 }
 
+if (true) {
+    list.Add((a, b));
+}
+
+if (true) {
+  list.Add((A.A)(c, d));
+}
+
+list.Add((a, b));
+
 --------------------------------------------------------------------------------
 
 (compilation_unit
@@ -1531,7 +1541,56 @@ void a() {
               (argument
                 (declaration_expression
                   type: (implicit_type)
-                  name: (identifier))))))))))
+                  name: (identifier)))))))))
+  (global_statement
+    (if_statement
+      condition: (boolean_literal)
+      consequence: (block
+        (expression_statement
+          (invocation_expression
+            function: (member_access_expression
+              expression: (identifier)
+              name: (identifier))
+            arguments: (argument_list
+              (argument
+                (tuple_expression
+                  (argument
+                    (identifier))
+                  (argument
+                    (identifier))))))))))
+  (global_statement
+    (if_statement
+      condition: (boolean_literal)
+      consequence: (block
+        (expression_statement
+          (invocation_expression
+            function: (member_access_expression
+              expression: (identifier)
+              name: (identifier))
+            arguments: (argument_list
+              (argument
+                (cast_expression
+                  type: (qualified_name
+                    qualifier: (identifier)
+                    name: (identifier))
+                  value: (tuple_expression
+                    (argument
+                      (identifier))
+                    (argument
+                      (identifier)))))))))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (member_access_expression
+          expression: (identifier)
+          name: (identifier))
+        arguments: (argument_list
+          (argument
+            (tuple_expression
+              (argument
+                (identifier))
+              (argument
+                (identifier)))))))))
 
 ================================================================================
 Tuple expressions

@@ -782,3 +782,41 @@ public class G : F {
                     (identifier))))))
           (return_statement
             (integer_literal)))))))
+
+
+================================================================================
+Class with parameters
+================================================================================
+
+internal class A(string b, string c, string d = "default") : E(typeof(F), c, d) { }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    (identifier)
+    (parameter_list
+      (parameter
+        (predefined_type)
+        (identifier))
+      (parameter
+        (predefined_type)
+        (identifier))
+      (parameter
+        (predefined_type)
+        (identifier)
+        (equals_value_clause
+          (string_literal
+            (string_literal_fragment)))))
+    (base_list
+      (identifier)
+      (argument_list
+        (argument
+          (type_of_expression
+            (identifier)))
+        (argument
+          (identifier))
+        (argument
+          (identifier))))
+    (declaration_list)))

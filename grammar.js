@@ -559,7 +559,10 @@ module.exports = grammar({
       $._opt_semi,
     ),
 
-    base_list: $ => seq(':', commaSep1($._type)),
+    base_list: $ => seq(':', commaSep1(seq(
+      $._type, 
+      field('arguments', optional($.argument_list)),
+    ))),
 
     enum_member_declaration_list: $ => seq(
       '{',
@@ -580,6 +583,7 @@ module.exports = grammar({
       'class',
       field('name', $.identifier),
       field('type_parameters', optional($.type_parameter_list)),
+      field('parameters', optional($.parameter_list)),
       field('bases', optional($.base_list)),
       repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
@@ -1244,7 +1248,7 @@ module.exports = grammar({
 
     await_expression: $ => prec.right(PREC.UNARY, seq('await', $._expression)),
 
-    cast_expression: $ => prec.right(PREC.CAST, prec.dynamic(1, seq(  // higher than invocation, lower than binary
+    cast_expression: $ => prec.right(PREC.CAST, prec.dynamic(2, seq(  // higher than invocation, lower than binary
       '(',
       field('type', $._type),
       ')',
@@ -1384,10 +1388,10 @@ module.exports = grammar({
       ')'
     ),
 
-    member_access_expression: $ => prec(PREC.DOT, seq(
+    member_access_expression: $ => prec(PREC.DOT, prec.dynamic(1, seq( // lower than cast, higher than qualified_name
       field('expression', choice($._expression, $.predefined_type, $._name)),
       choice('.', '->'),
-      field('name', $._simple_name)
+      field('name', $._simple_name))
     )),
 
     member_binding_expression: $ => seq(
@@ -1665,7 +1669,7 @@ module.exports = grammar({
         ['>=', PREC.REL], // greater_than_or_equal_expression
         ['>', PREC.REL] //  greater_than_expression
       ].map(([operator, precedence]) =>
-        prec.left(precedence, prec.dynamic(2, seq(  // higher than cast
+        prec.left(precedence, prec.dynamic(3, seq(  // higher than cast
           field('left', $._expression),
           field('operator', operator),
           field('right', $._expression)
